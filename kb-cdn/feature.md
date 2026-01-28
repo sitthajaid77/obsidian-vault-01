@@ -1,0 +1,2 @@
+- Update on 13 Jan 26: N. Mac proposed a feature to automatically restart Nginx when the geo module fails. Teohong will going to test in LAB and will present to team again.
+- 

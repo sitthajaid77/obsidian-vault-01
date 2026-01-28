@@ -1,0 +1,2 @@
+- การ install '.ipa' ให้ใช้ command 'xcrun devicectl device install app --device <DEVICE_UDID> AIS_Play_debug_V3.0.8_98_202601082138.ipa' โดยจะต้องมี status เป็น available (paired) ก่อน (ใช้ command xcrun devicectl list devices ในการตรวจสอบ) (update: 12jan26)
+- 

@@ -1,0 +1,6 @@
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/copilot/data.json
+.DS_Store
+node_modules/
+*.log

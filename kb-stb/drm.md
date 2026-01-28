@@ -1,0 +1,1 @@
+- After ZTE disabled DRM on the SMS portal, within 30 minutes the frontend application stopped requesting the Entitlement Service. N.Koi verified this using Charles while testing during the DRM disablement on Monomax Sport 9 (updated on 12 Jan 26)

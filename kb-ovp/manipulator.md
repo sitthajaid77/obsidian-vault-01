@@ -1,0 +1,2 @@
+- update on 13jan26: sample of cURL request to ZTE manipulator to obtain the manifest file
+  curl -H "userid: 8882938776" -H "authinfo: 6uVAjUFw1UqpAF1N1Xg9M%2FUgyhXZvwzYIfiThPZ2dua61Fslk8Dpmq8vFITH2wen" -H "usersessionid: MaLhyF@jUp3fpw6ch4v6229152265589" -H "User-Agent: ExoPlayer" -H "Host: mp3.ovp.ais.th:7111" --compressed https://mp3.ovp.ais.th:7111/out/v1/Monomax-Sport/sport9/dash/index.mpd?playbackUrlPrefix=https%3A%2F%2Ftr.play-rfcdn.ais.th%3A443&rfkname=rfkz&originBasicUrl=http%3A%2F%2Flive-sport-a.monomax.me&pname=monomax%22

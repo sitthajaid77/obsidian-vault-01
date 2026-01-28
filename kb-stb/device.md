@@ -1,0 +1,55 @@
+- Screen capture during streaming (updated on 12 Jan 26)
+	• On the 912 STB, screen capture during streaming is supported, except for DRM-protected content, which cannot be captured.
+	• On Android TV (ATV), screen capture is not supported, regardless of whether the content is DRM-protected or not.
+- STB App Crash Analysis - 12JAN26 Summary
+	- Device: STB on Mr. Sitthisak's desk
+	- **Environment**: Staging
+	- **FBBID**: 8880524099
+	- **Issue**: App exited from playback screen to home menu
+	- **NPAW**: No related error recorded
+	- **Root Cause**: System killed app due to WebView package update
+	- Timeline Breakdown
+		- 14:43:51.148-287 - Package Installation Initiated
+			- `E/PackageInstallerSession(938)`: mUserActionRequired should not be null (x2)
+			- `I/PackageManager(938)`: Integrity check passed for `vmdl812250574.tmp`
+			- `I/PackageManager(938)`: Integrity check passed for `vmdl2138451895.tmp` 
+		- 14:43:51.374-375 - Installation Started
+			- `I/PackageManager(938)`: Continuing with installation of `vmdl812250574.tmp`
+			- `I/PackageManager(938)`: Continuing with installation of `vmdl2138451895.tmp`
+		 - 14:43:51.489 - WebView Force Stop
+			 - `I/ActivityManager(938)`: Force stopping `com.google.android.webview` appid=10057 user=-1: installPackageLI
+			 - **Note**: System force stopped WebView to perform update
+		- 14:43:51.508 - WebView Update
+			- `I/PackageManager(938)`: Update system package `com.google.android.webview` code path changed
+			- From: `/data/app/~~KE26135V9KRvK6ZqAR1gWA==/com.google.android.webview-X_Smn1MTq_8Ke6d1rXbQkQ==`
+			- To: `/data/app/~~9jdWnCMXhdZ9RVQ-uyzaog==/com.google.android.webview-2vMSxoS6DoNuEyZT_7lcpw==`
+		- 14:43:51.576 - App Killed 
+			- `I/ActivityManager(938)`: Killing 8368:`com.ais.playbox.debug`/u0a8 (adj 0): stop `com.google.android.webview` due to installPackageLI
+			- **Critical**: This is the moment the playback app was terminated
+		- 14:43:51.595-830 - Shared Library Issues
+			- `E/PackageManager(938)`: Shared lib without setting: `SharedLibraryInfo{name:com.google.android.trichromelibrary, type:static, version:749914630}` (x2)
+			- **Note**: TrichromeLibrary (Chrome/WebView component) had issues during update
+		- 14:43:51.877 - Window Death
+			- `I/WindowManager(938)`: WIN DEATH: `Window{e1068b3 u0 com.ais.playbox.debug/com.amt.launcher_ais.ui.activity.WebActivity}`
+			- **Note**: WebActivity window destroyed
+		- 14:43:52.321 - DeadObjectException
+			- `W/ActivityManager(938)`: Exception when unbinding service `com.ais.playbox.debug/org.chromium.content.app.SandboxedProcessService0:0`
+			- `W/ActivityManager(938)`: `android.os.DeadObjectException`
+			- **Note**: Exception thrown because service was already killed when system tried to unbind
+		- 14:43:52.332 - WebView Process Cleanup
+			- `I/ActivityManager(938)`: Killing `com.google.android.webview:sandboxed_process0` (adj 900): isolated not needed
+		- 14:43:52.342 - Activity Force Removed
+			- `W/ActivityTaskManager(938)`: Force removing `ActivityRecord{683456c u0 com.ais.playbox.debug/com.amt.launcher_ais.ui.activity.WebActivity t167 f}`: app died, no saved state
+		 - 14:43:52.383 - Process Obituary
+			 - `V/ActivityManager(938)`: Got obituary of 8368:`com.ais.playbox.debug`
+			 - `W/ActivityManager(938)`: setHasOverlayUi called on unknown pid: 8368
+			 - **Note**: System confirmed process 8368 is dead
+		- 14:43:52.478 - App Restart
+			- `I/ActivityManager(938)`: Start proc 28439:`com.ais.playbox.debug`/u0a8 for top-activity `{com.ais.playbox.debug/com.amt.launcher_ais.ui.activity.MainActivity}`
+			- **Note**: System restarted app automatically with new PID: 28439
+		- Root Cause Analysis
+			- Trigger: WebView package update initiated during app playback
+			- Action: System force-stopped WebView component to apply update
+			- Impact: Since `com.ais.playbox.debug` depends on WebView, system killed the app process
+			- Result: App crashed, returned to home (MainActivity), no playback state saved
+- 

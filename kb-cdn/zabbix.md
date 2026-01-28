@@ -1,0 +1,2 @@
+- Update on 13 Jan 26: In Zabbix, there is a graph that shows whether the geo module is working properly. A value of 0 indicates an error, and 1 indicates OK, and 0 will sending the alarm.
+- 
