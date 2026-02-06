@@ -3,7 +3,7 @@ type: kb
 category: kb-stb
 tags: [stb, error-code, exoplayer, dash, manifest, ecs, debugging]
 date_created: 2026-01-27
-last_updated: 2026-01-27
+last_updated: 2026-02-03
 status: active
 priority: high
 ---
@@ -11,13 +11,13 @@ priority: high
 # STB Error Codes
 
 ## Tags
-#stb #error-code #exoplayer #dash #manifest #ecs #debugging
+#stb #error-code #exoplayer #dash #manifest #ecs #debugging #drm #entitlement
 
 ---
 
 ## Overview
 
-Error codes and troubleshooting guide for AISPlay STB (Set-Top Box) application, covering application errors, streaming errors, and DASH manifest parsing issues.
+Error codes and troubleshooting guide for AISPlay STB (Set-Top Box) application, covering application errors, streaming errors, DRM/entitlement issues, and DASH manifest parsing issues.
 
 ---
 
@@ -38,6 +38,23 @@ Error codes and troubleshooting guide for AISPlay STB (Set-Top Box) application,
 
 **Related:**
 - ECS (Emergency Configure Server) is required during app initialization
+
+---
+
+## DRM / Entitlement Errors
+
+**Date Updated:** 2026-02-03
+
+### Error Code: 60004 (Entitlement Service Blocked)
+
+**Cause:** Entitlement service request is blocked or unreachable.
+
+**Test Method:**
+- N.Koi (กอย) performed a test by blocking the request to "entitlement service".
+
+**Error Behavior:**
+- STB displays error code 60004.
+- NPAW Log: `Caused by: androidx.media3.exoplayer.drm.DrmSession$DrmSessionException: androidx.media3.exoplayer.drm.MediaDrmCallbackException: androidx.media3.datasource.HttpDataSource$HttpDataSourceException: Malformed URL`
 
 ---
 
@@ -293,6 +310,7 @@ Caused by: IndexOutOfBoundsException: Index 0 out of bounds for length 0
 | ไม่มี SegmentTimeline | 15022000       | เช็คว่ามี `<SegmentTimeline>` ใน `<SegmentTemplate>` |
 | SegmentTimeline ว่าง  | 15022000       | เช็คว่ามี `<S>` elements ใน `<SegmentTimeline>`      |
 | ขาด `</MPD>`          | ไม่มี (silent) | เช็ค closing tag `</MPD>`                            |
+| Entitlement Blocked   | 60004          | เช็ค request ไปที่ entitlement service               |
 
 ---
 
@@ -305,6 +323,9 @@ Caused by: IndexOutOfBoundsException: Index 0 out of bounds for length 0
 ---
 
 ## Notes
+
+### 2026-02-03
+- Added Error Code 60004 (Entitlement Service Blocked) - tested by N.Koi by blocking the entitlement service request; results in "Malformed URL" error in Media3/ExoPlayer DRM session.
 
 ### 2026-01-27
 - Created dedicated error code documentation file (extracted from app.md)

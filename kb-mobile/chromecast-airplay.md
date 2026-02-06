@@ -3,7 +3,7 @@ type: kb
 category: mobile
 tags: [chromecast, airplay, cast-receiver, watermark, fmts, drm, concurrency, adb, debugging]
 date_created: 2026-01-13
-last_updated: 2026-01-19
+last_updated: 2026-02-03
 status: active
 priority: medium
 ---
@@ -11,17 +11,38 @@ priority: medium
 # Chromecast & AirPlay
 
 ## Tags
-#chromecast #airplay #cast-receiver #watermark #fmts #drm #concurrency #mobile #adb #debugging
+#chromecast #airplay #cast-receiver #watermark #fmts #drm #concurrency #mobile #adb #debugging #cdn #huawei-cdn #rs-epg #cors
 
 ---
 
 ## Overview
 
-Knowledge base สำหรับการทำงานของ Chromecast และ AirPlay รวมถึงการ integrate watermark SDK และ DRM handling บน Cast receiver application
+Knowledge base สำหรับการทำงานของ Chromecast และ AirPlay รวมถึงการ integrate watermark SDK, DRM handling บน Cast receiver application, และ CDN routing optimization.
 
 ---
 
 ## Technical Details
+
+### Chromecast CDN Routing & RS-EPG Integration
+
+**Date Updated:** 2026-02-03
+
+**Context:** การจัดการให้ Chromecast สามารถใช้งาน Huawei CDN ที่ไม่มีการตรวจสอบ User-Agent ได้ เนื่องจากข้อจำกัดที่ไม่สามารถปรับแต่ง User-Agent headers บน Chromecast ได้
+
+#### Current Issue
+- **ZTE RS-EPG Limitation:** ไม่สามารถใช้ custom headers เพื่อแจ้ง RS-EPG ให้เลือก target CDN ได้ เนื่องจากพบปัญหา **CORS** ใน module 'RS' ของ ZTE
+
+#### Interim Solution (Until May 2026)
+เพื่อให้ Chromecast สามารถใช้งานได้ก่อนการเปิดตัว Web Client (May 2026):
+1. **deviceType Selection:** กำหนดให้ Chromecast ส่ง `deviceType` = `web` เมื่อร้องขอไปยัง RS-EPG และ NPAW
+2. **CDN Routing:** การระบุเป็น `web` จะทำให้ระบบชี้ไปที่ **Huawei CDN** (Staging/Production) ซึ่งถูกตั้งค่าให้ **Bypass User-Agent validation**
+3. **Timeline:** ใช้แนวทางนี้เป็นหลักจนกว่าจะมีการ Launch Web Client อย่างเป็นทางการ
+
+#### Permanent Fix & Transition
+1. **Module Upgrade:** ZTE ต้องทำการ deploy **'RS' module version ใหม่** เพื่อแก้ไขปัญหา CORS
+2. **Revert Configuration:** หลังจากแก้ไข CORS แล้ว จะเปลี่ยน Chromecast กลับมาส่งข้อมูลผ่าน **Custom Headers** แทนการใช้ `deviceType` = `web`
+
+---
 
 ### AirPlay Device Concurrency Behavior
 

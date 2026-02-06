@@ -2,7 +2,7 @@
 
 This file provides guidance to the GPT-5.2-codex agent when working with code in this repository.
 
-**Date Updated:** 2026-01-28
+**Date Updated:** 2026-02-06
 
 ---
 
@@ -10,6 +10,8 @@ This file provides guidance to the GPT-5.2-codex agent when working with code in
 
 > **IMPORTANT:** When creating or importing content:
 
+- **Folder restriction:** Do NOT update, look into, or perform any actions in the `to-notebooklm/` folder.
+- **Task Search:** When asked for "all tasks" or "completed tasks", ALWAYS search and summarize from BOTH `WorkLog/` and `WorkAssignment/` folders to ensure comprehensive coverage.
 - **Language:** Use English for all content (Thai only when explicitly requested or in quotes)
 - Record ONLY actual information that was provided or requested
 - Do NOT add supplementary content unless explicitly asked
@@ -140,6 +142,11 @@ Different types of tasks have different completion criteria:
   - Specify: `Blocked by: [person/team/system]`, `Waiting for: [specific action]`, `Expected: [timeline if known]`
   - Update regularly with latest status from blocking party
   - Move back to "In Progress" when unblocked
+
+### Inactive Task Handling
+
+- **Strikethrough instead of remove:** When a task is no longer tracked, completed, finished, or handed over — use strikethrough (`~~text~~`) instead of removing it. Keep the information visible for reference.
+- **Weekly migration:** Do NOT carry to the next week tasks that are: no longer tracking, completed, finished, or handed over. Only migrate active tasks (In Progress, Blocked/Waiting).
 
 ---
 

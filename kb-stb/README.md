@@ -2,7 +2,7 @@
 type: kb-index
 category: kb-stb
 date_created: 2026-01-19
-last_updated: 2026-01-24
+last_updated: 2026-02-04
 tags: [index, readme, stb, set-top-box]
 ---
 
@@ -26,6 +26,8 @@ Set-top box platform knowledge base covering STB applications, DRM, DNS, and dev
 - [[device]] - Device specifications, screen capture behavior, app crash analysis
 - [[drm]] - DRM disable behavior and Entitlement Service
 - [[dns]] - STB DNS resolution behavior
+- [[hotel-version]] - STB hotel version template selection and FBBID process
+- [[vertical-4k-black-bar]] - Vertical 4K black bar (surface scaling, DRM, integer-multiple workaround)
 
 ### Troubleshooting
 - [[TEST ExoPlayer Error Handling and Corrupted DASH Manifest]] - Detailed ExoPlayer error testing
@@ -40,6 +42,7 @@ Set-top box platform knowledge base covering STB applications, DRM, DNS, and dev
 - **Device** - STB hardware specs and platform behavior
 - **DRM** - DRM integration and entitlement
 - **Network** - DNS resolution, connectivity
+- **Hotel** - Hotel-specific configurations and templates
 
 ---
 
@@ -51,6 +54,12 @@ Set-top box platform knowledge base covering STB applications, DRM, DNS, and dev
 ---
 
 ## Notes
+
+### 2026-02-04
+- Added [[vertical-4k-black-bar]] - Vertical 4K black bar (ZTE/VisualOn: surface scaling, DRM, integer-multiple workaround)
+
+### 2026-01-28
+- Added [[hotel-version]] - STB hotel version template selection and FBBID process documentation
 
 ### 2026-01-24
 - Added [[hybrid-architecture]] - Hybrid App architecture documentation
